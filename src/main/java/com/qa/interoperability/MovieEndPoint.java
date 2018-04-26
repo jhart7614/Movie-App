@@ -4,6 +4,7 @@ package com.qa.interoperability;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.qa.business.service.IMovieService;
@@ -21,4 +22,13 @@ public class MovieEndPoint {
 	{
 		return service.getAllMovies();
 	}
+	
+	@GET
+	@Path("/json/{id}")
+	@Produces({ "application/json" })
+	public String getMovies(@PathParam("id") Long id)
+	{
+		return service.getAMovie(id);
+	}
+	
 }
