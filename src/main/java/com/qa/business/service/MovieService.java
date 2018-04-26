@@ -8,7 +8,7 @@ public class MovieService implements IMovieService {
 
 	@Inject
 	private IMovieRepository repo;
-	
+
 	public String getAllMovies() {
 		return repo.getAllMovies();
 	}
@@ -17,6 +17,8 @@ public class MovieService implements IMovieService {
 		return repo.getAMovie(id);
 	}
 
-	
+	public String createMovie(String jsonMovie) {
+		return repo.createMovie(jsonMovie);
+	}
 
 }
