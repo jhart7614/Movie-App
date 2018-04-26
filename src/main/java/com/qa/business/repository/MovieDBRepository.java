@@ -35,13 +35,16 @@ public class MovieDBRepository implements IMovieRepository {
 
 
 	public String getAMovie(Long id) {
-		Movie aMovie = getMovie(id);
+		Movie aMovie = findMovie(id);
 		if (aMovie != null) {
 			return util.getJSONForObject(aMovie);
 		} else {
 			return "{\"message\":\"movie not found\"}";
 		}
+	}
 
+	private Movie findMovie(Long id) {
+		return manager.find(Movie.class, id);
 	}
 
 
@@ -51,5 +54,20 @@ public class MovieDBRepository implements IMovieRepository {
 		manager.persist(aMovie);
 		return "{\"message\":\"movie created \"}";
 	}
+
+	@Transactional(REQUIRED)
+	public String deleteMovie(Long id) {
+		Movie movieInDB = findMovie(id);
+		manager.remove(movieInDB);
+		return "{\"message\":\"movie deleted \"}";
+	}
 	
+	@Transactional(REQUIRED)
+	public String updateMovie(String movieJSON) {
+		Movie aMovie = util.getObjectForJSON(movieJSON, Movie.class);
+		if (movieJSON != null) {
+			manager.merge(aMovie);
+		}
+		return "{\"message\": \"movie sucessfully updated\"}";
+}
 }

@@ -21,4 +21,12 @@ public class MovieService implements IMovieService {
 		return repo.createMovie(jsonMovie);
 	}
 
+	public String deleteMovie(Long id) {
+		return repo.deleteMovie(id);
+	}
+	
+	public String updateMovie(String jsonMovie) {
+		return repo.updateMovie(jsonMovie);
+	}
+
 }
